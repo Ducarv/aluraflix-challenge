@@ -1,5 +1,6 @@
 import express from "express";
-import db from "./config/db.js"
+import db from "./config/db.js";
+import routes from "./routes/index.js";
 
 const app = express();
 
@@ -9,5 +10,7 @@ db.on("error" , console.log.bind("Connection failed"));
 db.once("open", () => {
     console.log("db connected");
 })
+
+routes(app);
 
 export default app;
