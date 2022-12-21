@@ -33,6 +33,28 @@ class VideoController {
             }
         })
     }
+
+    static updateVideoById = (req, res) => {
+        const { id } = req.params;
+        Video.findByIdAndUpdate(id, { $set: req.body }, (err, videos) => {
+            if(err) {
+                res.status(500).send({ message: "You cannot update this video"});
+            } else {
+                res.status(200).send({ message: `Video updated`});
+            }
+        })
+    }
+
+    static deleteVideoById = (req, res) => {
+        const { id } = req.params;
+        Video.findByIdAndDelete(id, (err, videos) => {
+            if(err) {
+                res.status(500).send({ message: `cannot delete this video`});
+            } else {
+                res.status(200).send({ message: "Video deleted"});
+            }
+        })
+    }
 }
 
 export default VideoController;
