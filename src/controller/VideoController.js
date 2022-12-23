@@ -3,7 +3,7 @@ import Video from "../model/Video.js";
 class VideoController {
   static listVideos = (req, res) => {
     Video.find()
-    .populate("categories")
+    .populate("category", "title")
     .exec((err, videos) => {
         if (err) {
           res.status(500).send({ message: "Videos not found" });
@@ -17,7 +17,7 @@ class VideoController {
     const { id } = req.params;
 
     Video.findById(id) 
-    .populate("categories", "title")
+    .populate("category", "title")
     .exec((err, video) => {
         if (err) {
           res.status(500).send({ message: "Video not found" });
