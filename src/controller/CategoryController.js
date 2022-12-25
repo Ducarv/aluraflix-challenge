@@ -32,6 +32,28 @@ class CategoryController {
             }
         });
     }
+
+    static updateCategoriesById = (req, res) => {
+        const { id } = req.params;
+        Category.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+            if(err) {
+                res.status(500).send({message: `Cannot update ${err}`});
+            } else {
+                res.status(200).send({message: `Collection updated`});
+            }
+        })
+    }
+
+    static removeCategoriesById = (req, res) => {
+        const { id } = req.params;
+        Category.deleteOne({ id: id }, (err) => {
+            if(err) {
+                res.status(500).send(`Cannot delete category: ${err}`);
+            } else {
+                res.status(200).send(`Category deleted`);
+            }
+        })
+    }
 }
 
 export default CategoryController;
