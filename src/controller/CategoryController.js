@@ -46,7 +46,7 @@ class CategoryController {
 
     static removeCategoriesById = (req, res) => {
         const { id } = req.params;
-        Category.deleteOne({ id: id }, (err) => {
+        Category.findOneAndDelete(id, (err) => {
             if(err) {
                 res.status(500).send(`Cannot delete category: ${err}`);
             } else {

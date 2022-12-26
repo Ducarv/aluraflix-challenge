@@ -27,6 +27,28 @@ class VideoController {
     })
   };
 
+  static listVideosByCategory = (req, res) => {
+    const { id } = req.params;
+    Video.find({ category: id }, (err, videos) => {
+      if(err) {
+        res.status(500).send(`Cannot found videos by id: ${err}`);
+      } else {
+        res.status(200).json(videos);
+      }
+    })
+  };
+
+  static listVideosByTitle = (req, res) => {
+     const { search } = req.query;
+     Video.find({ title: search }, (err, videos) => {
+      if(err) {
+        res.status(500).send(`Cannot found video, ${err}`);
+      } else {
+        res.status(200).json(videos);
+      }
+     })
+  }
+
   static createVideo = (req, res) => {
     const video = new Video(req.body);
     video.save((err) => {
